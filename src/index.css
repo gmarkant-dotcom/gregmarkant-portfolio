@@ -1,0 +1,153 @@
+/* ============================================================
+   RESET
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================================
+   THEME TOKENS — applied to :root by default (no album selected)
+   The applyTheme() function in Phase 3 overwrites these on
+   document.documentElement when an album is chosen.
+   ============================================================ */
+:root {
+  /* Background layers */
+  --bg-primary: #111111;
+  --bg-secondary: #1a1a1a;
+  --bg-tile: #222222;
+
+  /* Text */
+  --text-primary: #f0f0f0;
+  --text-secondary: #888888;
+  --text-accent: #ffffff;
+
+  /* Accent / highlight */
+  --accent: #ffffff;
+  --accent-soft: #444444;
+
+  /* Ticker */
+  --ticker-bg: #000000;
+  --ticker-text: #ffffff;
+
+  /* Borders */
+  --border-color: rgba(255, 255, 255, 0.1);
+
+  /* Typography */
+  --font-primary: 'Inter', system-ui, sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-weight-display: 400;
+
+  /* Transitions — all themed elements use this */
+  --theme-transition: background-color 0.6s ease, color 0.6s ease,
+    border-color 0.6s ease;
+
+  /* Tile */
+  --tile-bg: #1e1e1e;
+  --tile-border: rgba(255, 255, 255, 0.08);
+  --tile-hover-lift: -6px;
+
+  /* Grain overlay opacity (toggled per theme) */
+  --grain-opacity: 0;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-weight: 400;
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: var(--theme-transition);
+  /* Grain texture overlay — rendered as a pseudo-element */
+  position: relative;
+}
+
+/* Grain overlay — activated via --grain-opacity token */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  mix-blend-mode: overlay;
+}
+
+.site-wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============================================================
+   TICKER
+   ============================================================ */
+.ticker-bar {
+  width: 100%;
+  background-color: var(--ticker-bg);
+  color: var(--ticker-text);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px 0;
+  border-bottom: 0.5px solid var(--border-color);
+  transition: var(--theme-transition);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.ticker-inner {
+  display: inline-block;
+  animation: ticker-scroll 60s linear infinite;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  font-weight: 400;
+}
+
+.ticker-inner:hover {
+  animation-play-state: paused;
+}
+
+/* Duplicate the text so the loop is seamless */
+.ticker-inner span {
+  padding-right: 80px;
+}
+
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
