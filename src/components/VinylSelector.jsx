@@ -12,7 +12,9 @@ export default function VinylSelector({ activeTheme, onSelect }) {
 
   return (
     <section className="vinyl-section">
-      <p className="vinyl-prompt">Put your record on</p>
+      <p className="vinyl-prompt" aria-hidden="true">
+        SPIN YOUR RECORD
+      </p>
 
       <div className="vinyl-shelf">
         {themes.map((theme) => {

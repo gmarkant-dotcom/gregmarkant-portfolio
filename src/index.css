@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap');
+
 /* ============================================================
    RESET
    ============================================================ */
@@ -28,6 +30,28 @@
   /* Accent / highlight */
   --accent: #ffffff;
   --accent-soft: #444444;
+  --color-accent: #c724b1;
+
+  /* Card system */
+  --color-text: #f5e6ff;
+  --color-surface: #130017;
+  --color-muted: #a67aac;
+  --color-text-inverse: #f7edff;
+  --card-overlay-gradient: linear-gradient(
+    180deg,
+    rgba(13, 0, 16, 0) 35%,
+    rgba(13, 0, 16, 0.92) 100%
+  );
+  --card-vignette-overlay: radial-gradient(
+    circle at center,
+    rgba(13, 0, 16, 0) 38%,
+    rgba(26, 0, 48, 0.8) 100%
+  );
+  --tile-gap: 1.5rem;
+  --radius-card: 0px;
+  --radius-pill: 999px;
+  --space-card-inner: 1rem;
+  --card-featured-radius: 0px;
 
   /* Ticker */
   --ticker-bg: #000000;
@@ -37,9 +61,34 @@
   --border-color: rgba(255, 255, 255, 0.1);
 
   /* Typography */
-  --font-primary: 'Inter', system-ui, sans-serif;
-  --font-display: 'Inter', system-ui, sans-serif;
-  --font-weight-display: 400;
+  --font-primary: 'Cormorant', serif;
+  --font-body: 'Cormorant', serif;
+  --font-display: 'Playfair Display', serif;
+  --font-ticker: 'DM Sans', 'Inter', system-ui, sans-serif;
+  --font-weight-display: 700;
+  --display-font-style: italic;
+  --display-letter-spacing: -0.01em;
+  --display-text-transform: none;
+
+  /* Themed page treatments */
+  --page-background: radial-gradient(circle at 50% 40%, #1a0030 0%, #0a0010 78%);
+  --theme-before-bg: linear-gradient(
+      135deg,
+      rgba(199, 36, 177, 0) 16%,
+      rgba(199, 36, 177, 0.9) 46%,
+      rgba(199, 36, 177, 0) 74%
+    ),
+    linear-gradient(
+      137deg,
+      rgba(199, 36, 177, 0) 30%,
+      rgba(199, 36, 177, 0.7) 56%,
+      rgba(199, 36, 177, 0) 84%
+    );
+  --theme-before-opacity: 0.22;
+  --theme-after-bg: none;
+  --theme-after-opacity: 0;
+  --theme-after-height: 0px;
+  --theme-after-top: auto;
 
   /* Transitions — all themed elements use this */
   --theme-transition: background-color 0.6s ease, color 0.6s ease,
@@ -63,29 +112,116 @@ html {
 }
 
 body {
-  background-color: var(--bg-primary);
+  background: var(--page-background);
   color: var(--text-primary);
   font-family: var(--font-primary);
   font-weight: 400;
   line-height: 1.6;
   min-height: 100vh;
   transition: var(--theme-transition);
-  /* Grain texture overlay — rendered as a pseudo-element */
   position: relative;
 }
 
-/* Grain overlay — activated via --grain-opacity token */
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+body::before,
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 9999;
-  opacity: var(--grain-opacity);
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+}
+
+body::before {
+  /* Must be >= 0: negative z-index paints below the element's own background (invisible). */
+  z-index: 0;
+  background: var(--theme-before-bg);
+  opacity: var(--theme-before-opacity);
+}
+
+body::after {
+  z-index: 140;
+  inset: auto 0;
+  top: var(--theme-after-top);
+  height: var(--theme-after-height);
+  background: var(--theme-after-bg);
+  opacity: var(--theme-after-opacity);
+}
+
+body[data-theme='purple-rain'],
+body[data-theme='purple_rain'] {
+  --page-background: radial-gradient(circle at 50% 40%, #1a0030 0%, #0a0010 78%);
+}
+
+body[data-theme='purple-rain']::before,
+body[data-theme='purple_rain']::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg opacity='0.18'%3E%3Cline x1='20' y1='140' x2='60' y2='20' stroke='%23e066ff' stroke-width='1' stroke-opacity='0.4'/%3E%3Cellipse cx='58' cy='22' rx='3' ry='7' fill='%23e066ff' transform='rotate(-20 58 22)'/%3E%3Cellipse cx='45' cy='65' rx='2' ry='5' fill='%23dd88ff' transform='rotate(-35 45 65)'/%3E%3Cellipse cx='35' cy='95' rx='2' ry='5' fill='%23e066ff' transform='rotate(-25 35 95)'/%3E%3C/g%3E%3Cg opacity='0.12'%3E%3Cline x1='110' y1='155' x2='140' y2='40' stroke='%23e066ff' stroke-width='1' stroke-opacity='0.3'/%3E%3Cellipse cx='138' cy='42' rx='2' ry='6' fill='%23dd88ff' transform='rotate(15 138 42)'/%3E%3Cellipse cx='128' cy='80' rx='2' ry='4' fill='%23e066ff' transform='rotate(10 128 80)'/%3E%3Cellipse cx='118' cy='115' rx='2' ry='4' fill='%23dd88ff' transform='rotate(5 118 115)'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 160px 160px;
   background-repeat: repeat;
-  background-size: 128px 128px;
-  mix-blend-mode: overlay;
+  opacity: 1;
+}
+
+body[data-theme='joshua-tree'],
+body[data-theme='joshua_tree'] {
+  --page-background: linear-gradient(180deg, #0d0d0d 0%, #1a1408 100%);
+}
+
+#page-texture {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body[data-theme='joshua_tree'] #page-texture,
+body[data-theme='joshua-tree'] #page-texture {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320' preserveAspectRatio='none'%3E%3Cpath fill='%23c8902a' fill-opacity='0.07' d='M0,320 L0,200 Q60,140 120,180 Q180,220 240,160 Q300,100 360,140 Q420,180 480,120 Q540,60 600,100 Q660,140 720,80 Q780,20 840,60 Q900,100 960,70 Q1020,40 1080,90 Q1140,140 1200,110 Q1260,80 1320,130 Q1380,180 1440,150 L1440,320 Z'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+body[data-theme='purple_rain'] #page-texture,
+body[data-theme='purple-rain'] #page-texture {
+  display: none;
+}
+
+body[data-theme='body_talk'] #page-texture,
+body[data-theme='body-talk'] #page-texture {
+  display: none;
+}
+
+body[data-theme='body-talk'],
+body[data-theme='body_talk'] {
+  --page-background: #f5f5f5;
+}
+
+body[data-theme='body-talk']::before,
+body[data-theme='body_talk']::before {
+  background-image:
+    radial-gradient(
+      ellipse 20px 14px at 50% 0%,
+      rgba(232, 0, 13, 0.03) 0%,
+      rgba(232, 0, 13, 0.03) 70%,
+      transparent 71%
+    ),
+    radial-gradient(
+      ellipse 20px 14px at 0% 50%,
+      rgba(232, 0, 13, 0.02) 0%,
+      rgba(232, 0, 13, 0.02) 70%,
+      transparent 71%
+    ),
+    radial-gradient(
+      ellipse 20px 14px at 100% 50%,
+      rgba(232, 0, 13, 0.02) 0%,
+      rgba(232, 0, 13, 0.02) 70%,
+      transparent 71%
+    );
+  background-size: 40px 28px;
+  background-repeat: repeat;
 }
 
 .site-wrapper {
@@ -114,9 +250,11 @@ body::after {
 .ticker-inner {
   display: inline-block;
   animation: ticker-scroll 60s linear infinite;
-  font-size: 13px;
-  letter-spacing: 0.02em;
-  font-weight: 400;
+  font-family: var(--font-ticker);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 .ticker-inner:hover {
@@ -124,8 +262,17 @@ body::after {
 }
 
 /* Duplicate the text so the loop is seamless */
-.ticker-inner span {
+.ticker-inner > span {
   padding-right: 80px;
+}
+
+.ticker-sep {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0.6em;
+  color: var(--color-accent);
+  opacity: 0.8;
+  vertical-align: middle;
 }
 
 @keyframes ticker-scroll {
@@ -156,32 +303,49 @@ body::after {
    VINYL SELECTOR SECTION
    ============================================================ */
 .vinyl-section {
-  padding: 60px 0 80px;
+  position: relative;
+  padding: 10px 0 30px;
   text-align: center;
   transition: var(--theme-transition);
 }
 
 .vinyl-prompt {
-  font-size: 13px;
-  letter-spacing: 0.12em;
+  position: absolute;
+  left: 50%;
+  top: 78%;
+  z-index: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  line-height: 1;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--text-secondary);
-  margin-bottom: 48px;
+  color: var(--color-accent);
+  opacity: 0.22;
+  text-align: center;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: visible;
+  transform: translate(-50%, -50%);
   transition: var(--theme-transition);
 }
 
 .vinyl-shelf {
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: 32px;
+  gap: 24px;
   perspective: 1000px;
 }
 
 /* Individual album card */
 .vinyl-card {
   position: relative;
-  width: 200px;
+  width: 176px;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   transform-style: preserve-3d;
@@ -242,7 +406,7 @@ body::after {
   height: 6px;
   border-radius: 50%;
   background-color: var(--accent);
-  margin: 10px auto 0;
+  margin: 7px auto 0;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -253,7 +417,7 @@ body::after {
 
 /* Album label below card */
 .vinyl-card-label {
-  margin-top: 12px;
+  margin-top: 8px;
   text-align: center;
 }
 
@@ -289,8 +453,10 @@ body::after {
 
 /* Now playing indicator */
 .now-playing {
-  margin-top: 32px;
-  font-size: 12px;
+  position: relative;
+  z-index: 1;
+  margin-top: 14px;
+  font-size: 10px;
   color: var(--accent);
   letter-spacing: 0.08em;
   text-transform: uppercase;

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { getTheme, getAllThemes } from '../data/themes.config'
 
 export function useTheme() {
@@ -15,6 +15,7 @@ export function useTheme() {
 
     // Set a data attribute on body for any CSS selectors that need it
     document.body.setAttribute('data-theme', themeId)
+    document.body.setAttribute('data-theme', theme.id)
 
     setActiveTheme(theme)
   }, [])
@@ -28,6 +29,19 @@ export function useTheme() {
     document.body.removeAttribute('data-theme')
     setActiveTheme(null)
   }, [])
+
+  useEffect(() => {
+    const defaultTheme = getAllThemes()[0]
+    if (!defaultTheme) return undefined
+
+    const frameId = window.requestAnimationFrame(() => {
+      applyTheme(defaultTheme.id)
+    })
+
+    return () => {
+      window.cancelAnimationFrame(frameId)
+    }
+  }, [applyTheme])
 
   return { activeTheme, applyTheme, clearTheme }
 }
