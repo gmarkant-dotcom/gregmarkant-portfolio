@@ -28,6 +28,7 @@ export default function FilterBar({ filters, activeFilters, onChange }) {
   const filterDefinitions = [
     { keyName: 'industry', label: 'Industry', options: filters.industry },
     { keyName: 'skill', label: 'Skill', options: filters.skill },
+    { keyName: 'channel', label: 'CHANNEL', options: filters.channel },
     { keyName: 'year', label: 'Year', options: filters.year },
   ]
 

@@ -101,6 +101,9 @@
 
   /* Grain overlay opacity (toggled per theme) */
   --grain-opacity: 0;
+
+  /* Record player layout */
+  --ambient-vinyl-size: min(230vw, 2300px);
 }
 
 /* ============================================================
@@ -109,6 +112,12 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --ambient-vinyl-size: min(230vw, 2300px);
+  }
 }
 
 body {
@@ -225,6 +234,8 @@ body[data-theme='body_talk']::before {
 }
 
 .site-wrapper {
+  position: relative;
+  z-index: 2;
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 24px;
@@ -297,176 +308,6 @@ body[data-theme='body_talk']::before {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
-}
-
-/* ============================================================
-   VINYL SELECTOR SECTION
-   ============================================================ */
-.vinyl-section {
-  position: relative;
-  padding: 10px 0 30px;
-  text-align: center;
-  transition: var(--theme-transition);
-}
-
-.vinyl-prompt {
-  position: absolute;
-  left: 50%;
-  top: 78%;
-  z-index: 0;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 4vw, 3.2rem);
-  line-height: 1;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  opacity: 0.22;
-  text-align: center;
-  pointer-events: none;
-  white-space: nowrap;
-  overflow: visible;
-  transform: translate(-50%, -50%);
-  transition: var(--theme-transition);
-}
-
-.vinyl-shelf {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 24px;
-  perspective: 1000px;
-}
-
-/* Individual album card */
-.vinyl-card {
-  position: relative;
-  width: 176px;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  transform-style: preserve-3d;
-  border: none;
-  background: none;
-  padding: 0;
-}
-
-.vinyl-card:hover {
-  transform: translateY(-12px) rotateY(-8deg);
-}
-
-.vinyl-card.active {
-  transform: translateY(-20px) rotateY(-5deg);
-}
-
-.vinyl-card img {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  display: block;
-  border-radius: 2px;
-}
-
-/* Placeholder shown when no cover image is available */
-.vinyl-card-placeholder {
-  width: 100%;
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--bg-secondary);
-  border: 0.5px solid var(--border-color);
-  border-radius: 2px;
-  gap: 8px;
-  transition: var(--theme-transition);
-}
-
-.vinyl-card-placeholder .placeholder-artist {
-  font-size: 11px;
-  color: var(--text-secondary);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.vinyl-card-placeholder .placeholder-title {
-  font-size: 13px;
-  color: var(--text-primary);
-  font-weight: 500;
-  text-align: center;
-  padding: 0 12px;
-}
-
-/* Active indicator dot */
-.vinyl-card-active-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--accent);
-  margin: 7px auto 0;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.vinyl-card.active .vinyl-card-active-dot {
-  opacity: 1;
-}
-
-/* Album label below card */
-.vinyl-card-label {
-  margin-top: 8px;
-  text-align: center;
-}
-
-.vinyl-card-label .album-title {
-  font-size: 12px;
-  color: var(--text-primary);
-  font-weight: 500;
-  display: block;
-  transition: var(--theme-transition);
-}
-
-.vinyl-card-label .album-artist {
-  font-size: 11px;
-  color: var(--text-secondary);
-  display: block;
-  margin-top: 2px;
-  transition: var(--theme-transition);
-}
-
-/* Sleeve shadow effect */
-.vinyl-card::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 4px;
-  right: 4px;
-  height: 100%;
-  background-color: var(--bg-secondary);
-  border-radius: 2px;
-  z-index: -1;
-  transition: var(--theme-transition);
-}
-
-/* Now playing indicator */
-.now-playing {
-  position: relative;
-  z-index: 1;
-  margin-top: 14px;
-  font-size: 10px;
-  color: var(--accent);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  min-height: 20px;
-  transition: color 0.6s ease, opacity 0.4s ease;
-  opacity: 0;
-}
-
-.now-playing.visible {
-  opacity: 1;
 }
 
 /* ============================================================

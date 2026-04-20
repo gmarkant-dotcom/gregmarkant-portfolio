@@ -156,10 +156,28 @@
   gap: 0.4rem;
 }
 
+.flip-card-back-channels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
 .flip-card-skill-pill {
   border-radius: var(--radius-pill);
   border: 1px solid color-mix(in srgb, var(--color-accent) 45%, transparent);
   background-color: color-mix(in srgb, var(--color-accent) 16%, transparent);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.48rem;
+}
+
+.flip-card-channel-pill {
+  border-radius: var(--radius-pill);
+  border: 1px solid color-mix(in srgb, var(--color-muted) 45%, transparent);
+  background-color: color-mix(in srgb, var(--color-muted) 16%, transparent);
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: 0.68rem;

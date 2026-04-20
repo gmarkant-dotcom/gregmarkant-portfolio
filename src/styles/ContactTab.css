@@ -1,0 +1,75 @@
+.contact-tab {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  z-index: 50;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.contact-tab__rail {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  pointer-events: auto;
+  transform: translateX(-240px);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contact-tab--open .contact-tab__rail {
+  transform: translateX(0);
+}
+
+.contact-tab__panel {
+  box-sizing: border-box;
+  width: 240px;
+  flex: 0 0 240px;
+  padding: 1.5rem;
+  background: var(--color-accent);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  min-height: 100px;
+}
+
+.contact-tab__link {
+  font-size: 0.8rem;
+  color: var(--color-surface);
+  display: block;
+  padding: 0.4rem 0;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.contact-tab__link:hover {
+  text-decoration: underline;
+  opacity: 0.88;
+}
+
+.contact-tab__handle {
+  flex: 0 0 32px;
+  width: 32px;
+  min-height: 100px;
+  align-self: stretch;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background: var(--color-accent);
+  border-radius: 0 4px 4px 0;
+  box-shadow: 4px 0 12px color-mix(in srgb, var(--bg-primary) 35%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-tab__handle-label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--color-surface);
+  text-transform: uppercase;
+  transform: rotate(-90deg);
+  white-space: nowrap;
+}

@@ -1,93 +1,78 @@
 import { useMemo, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { getTheme } from '../data/themes.config'
-
-const MotionDiv = motion.div
-import { projects } from '../data/projects.data'
-import FilterBar from './FilterBar'
-import FlipCard from './FlipCard'
+import { AnimatePresence, motion } from 'framer-motion'
+import {
+  getChannels,
+  getIndustries,
+  getSkills,
+  projects,
+} from '../data/projects.data'
+import WorkTile from './WorkTile'
 import '../styles/WorkGrid.css'
 
-const ALL_OPTION = 'All'
-const YEAR_RANGE_OPTIONS = [
-  { value: ALL_OPTION, label: ALL_OPTION },
-  { value: '2020-2026', label: '2020–2026', start: 2020, end: 2026 },
-  { value: '2015-2019', label: '2015–2019', start: 2015, end: 2019 },
-  { value: '2010-2014', label: '2010–2014', start: 2010, end: 2014 },
+const FILTER_TABS = [
+  { id: 'industry', label: 'Industry' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'channels', label: 'Channels' },
+  { id: 'date', label: 'Date' },
 ]
 
-function toTitleCase(value) {
-  if (!value) return value
-  return value
-    .split(' ')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ')
-}
+const DATE_OPTIONS = [
+  { id: 'newest', label: 'Newest First' },
+  { id: 'oldest', label: 'Oldest First' },
+]
 
-function getProjectIndustries(project) {
-  return Array.isArray(project.industry) ? project.industry : [project.industry]
-}
+const DEFAULT_PILL = 'All'
 
-export default function WorkGrid({ activeThemeId }) {
-  const [activeIndustry, setActiveIndustry] = useState(ALL_OPTION)
-  const [activeSkill, setActiveSkill] = useState(ALL_OPTION)
-  const [activeYear, setActiveYear] = useState(ALL_OPTION)
-  const shouldReduceMotion = useReducedMotion()
+const MotionDiv = motion.div
 
-  const activeTheme = useMemo(() => getTheme(activeThemeId), [activeThemeId])
+export default function WorkGrid() {
+  const [activeTab, setActiveTab] = useState('industry')
+  const [activeIndustry, setActiveIndustry] = useState(DEFAULT_PILL)
+  const [activeSkill, setActiveSkill] = useState(DEFAULT_PILL)
+  const [activeChannel, setActiveChannel] = useState(DEFAULT_PILL)
+  const [activeDate, setActiveDate] = useState('newest')
 
-  const filters = useMemo(() => {
-    const industries = Array.from(
-      new Set(projects.flatMap((project) => getProjectIndustries(project))),
-    ).sort()
-    const skills = Array.from(new Set(projects.flatMap((project) => project.skills))).sort()
-
+  const filterPills = useMemo(() => {
     return {
-      industry: [
-        { value: ALL_OPTION, label: ALL_OPTION },
-        ...industries.map((industry) => ({
-          value: industry,
-          label: toTitleCase(industry),
-        })),
-      ],
-      skill: [
-        { value: ALL_OPTION, label: ALL_OPTION },
-        ...skills.map((skill) => ({ value: skill, label: toTitleCase(skill) })),
-      ],
-      year: YEAR_RANGE_OPTIONS.map(({ value, label }) => ({ value, label })),
+      industry: [DEFAULT_PILL, ...getIndustries()],
+      skills: [DEFAULT_PILL, ...getSkills()],
+      channels: [DEFAULT_PILL, ...getChannels()],
+      date: DATE_OPTIONS.map((option) => option.id),
     }
   }, [])
 
-  const filteredProjects = useMemo(() => {
-    return projects.filter((project) => {
-      const projectIndustries = getProjectIndustries(project)
+  const visibleProjects = useMemo(() => {
+    const filtered = projects.filter((project) => {
       const industryMatch =
-        activeIndustry === ALL_OPTION || projectIndustries.includes(activeIndustry)
-      const skillMatch = activeSkill === ALL_OPTION || project.skills.includes(activeSkill)
-      const selectedYearRange = YEAR_RANGE_OPTIONS.find(
-        (yearRange) => yearRange.value === activeYear,
-      )
-      const yearMatch =
-        activeYear === ALL_OPTION ||
-        (selectedYearRange &&
-          project.year >= selectedYearRange.start &&
-          project.year <= selectedYearRange.end)
-
-      return industryMatch && skillMatch && yearMatch
+        activeIndustry === DEFAULT_PILL || project.industry.includes(activeIndustry)
+      const skillMatch = activeSkill === DEFAULT_PILL || project.skills.includes(activeSkill)
+      const channelMatch =
+        activeChannel === DEFAULT_PILL || project.channels.includes(activeChannel)
+      return industryMatch && skillMatch && channelMatch
     })
-  }, [activeIndustry, activeSkill, activeYear])
 
-  function handleFilterChange(filterKey, value) {
-    if (filterKey === 'industry') setActiveIndustry(value)
-    if (filterKey === 'skill') setActiveSkill(value)
-    if (filterKey === 'year') setActiveYear(value)
+    const sortDirection = activeDate === 'newest' ? -1 : 1
+    return [...filtered].sort((a, b) => {
+      if (a.year === b.year) return a.projectName.localeCompare(b.projectName)
+      return (a.year - b.year) * sortDirection
+    })
+  }, [activeIndustry, activeSkill, activeChannel, activeDate])
+
+  function handlePillSelect(value) {
+    if (activeTab === 'industry') setActiveIndustry(value)
+    if (activeTab === 'skills') setActiveSkill(value)
+    if (activeTab === 'channels') setActiveChannel(value)
+    if (activeTab === 'date') setActiveDate(value)
   }
 
-  function clearFilters() {
-    setActiveIndustry(ALL_OPTION)
-    setActiveSkill(ALL_OPTION)
-    setActiveYear(ALL_OPTION)
-  }
+  const activePillValue =
+    activeTab === 'industry'
+      ? activeIndustry
+      : activeTab === 'skills'
+        ? activeSkill
+        : activeTab === 'channels'
+          ? activeChannel
+          : activeDate
 
   return (
     <section id="work" className="work-grid-section">
@@ -96,50 +81,56 @@ export default function WorkGrid({ activeThemeId }) {
         <h2 className="work-grid-title">Selected Work</h2>
       </div>
 
-      <FilterBar
-        filters={filters}
-        activeFilters={{
-          industry: activeIndustry,
-          skill: activeSkill,
-          year: activeYear,
-        }}
-        onChange={handleFilterChange}
-      />
+      <div className="work-grid-filters">
+        <div className="work-grid-filter-tabs">
+          {FILTER_TABS.map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              className="work-grid-filter-tab"
+              data-active={activeTab === tab.id}
+              onClick={() => setActiveTab(tab.id)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
 
-      <div className="work-grid" role="list">
+        <div className="work-grid-pill-row">
+          {filterPills[activeTab].map((pill) => {
+            const label =
+              activeTab === 'date'
+                ? DATE_OPTIONS.find((option) => option.id === pill)?.label ?? pill
+                : pill
+            return (
+              <button
+                key={pill}
+                type="button"
+                className="work-grid-filter-pill"
+                data-active={activePillValue === pill}
+                onClick={() => handlePillSelect(pill)}
+              >
+                {label}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      <MotionDiv className="work-grid" role="list" layout>
         <AnimatePresence mode="popLayout">
-          {filteredProjects.length ? (
-            filteredProjects.map((project) => (
+          {visibleProjects.length ? (
+            visibleProjects.map((project) => (
               <MotionDiv
                 key={project.id}
                 role="listitem"
                 layout
-                initial={{ opacity: 0, scale: 0.92 }}
+                initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{
-                  opacity: 0,
-                  scale: 0.92,
-                  transition: {
-                    opacity: {
-                      duration: shouldReduceMotion ? 0 : 0.25,
-                      ease: 'easeOut',
-                    },
-                    scale: { duration: shouldReduceMotion ? 0 : 0.25, ease: 'easeOut' },
-                  },
-                }}
-                transition={{
-                  layout: shouldReduceMotion
-                    ? { duration: 0 }
-                    : {
-                        type: 'spring',
-                        stiffness: 260,
-                        damping: 28,
-                      },
-                  opacity: { duration: shouldReduceMotion ? 0 : 0.35, ease: 'easeOut' },
-                  scale: { duration: shouldReduceMotion ? 0 : 0.35, ease: 'easeOut' },
-                }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.3 }}
               >
-                <FlipCard project={project} theme={activeTheme} />
+                <WorkTile project={project} />
               </MotionDiv>
             ))
           ) : (
@@ -149,20 +140,13 @@ export default function WorkGrid({ activeThemeId }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+              transition={{ duration: 0.3 }}
             >
-              <p className="work-grid-empty-text">No projects match these filters.</p>
-              <button
-                type="button"
-                className="work-grid-clear-filters"
-                onClick={clearFilters}
-              >
-                Clear filters
-              </button>
+              <p className="work-grid-empty-text">No projects match this filter</p>
             </MotionDiv>
           )}
         </AnimatePresence>
-      </div>
+      </MotionDiv>
     </section>
   )
 }

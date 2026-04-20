@@ -94,6 +94,15 @@ export default function FlipCard({ project, theme }) {
                 </span>
               ))}
             </div>
+            {project.channels?.length ? (
+              <div className="flip-card-back-channels">
+                {project.channels.map((channel) => (
+                  <span key={`${project.id}-ch-${channel}`} className="flip-card-channel-pill">
+                    {channel}
+                  </span>
+                ))}
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
