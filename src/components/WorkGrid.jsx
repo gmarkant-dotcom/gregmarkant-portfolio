@@ -11,8 +11,8 @@ import '../styles/WorkGrid.css'
 
 const FILTER_TABS = [
   { id: 'industry', label: 'Industry' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'channels', label: 'Channels' },
+  { id: 'skill', label: 'Skills' },
+  { id: 'channel', label: 'Channels' },
   { id: 'date', label: 'Date' },
 ]
 
@@ -27,52 +27,94 @@ const MotionDiv = motion.div
 
 export default function WorkGrid() {
   const [activeTab, setActiveTab] = useState('industry')
-  const [activeIndustry, setActiveIndustry] = useState(DEFAULT_PILL)
-  const [activeSkill, setActiveSkill] = useState(DEFAULT_PILL)
-  const [activeChannel, setActiveChannel] = useState(DEFAULT_PILL)
-  const [activeDate, setActiveDate] = useState('newest')
+  const [activeFilters, setActiveFilters] = useState({
+    industry: null,
+    skill: null,
+    channel: null,
+    date: null,
+  })
 
   const filterPills = useMemo(() => {
     return {
       industry: [DEFAULT_PILL, ...getIndustries()],
-      skills: [DEFAULT_PILL, ...getSkills()],
-      channels: [DEFAULT_PILL, ...getChannels()],
+      skill: [DEFAULT_PILL, ...getSkills()],
+      channel: [DEFAULT_PILL, ...getChannels()],
       date: DATE_OPTIONS.map((option) => option.id),
     }
   }, [])
 
+  const hasActiveFilters = useMemo(
+    () => Object.values(activeFilters).some((value) => value !== null),
+    [activeFilters],
+  )
+
+  const activeFilterEntries = useMemo(() => {
+    const categoryLabels = {
+      industry: 'Industry',
+      skill: 'Skill',
+      channel: 'Channel',
+      date: 'Date',
+    }
+
+    return Object.entries(activeFilters)
+      .filter(([, value]) => value !== null)
+      .map(([category, value]) => ({
+        category,
+        label: categoryLabels[category],
+        value:
+          category === 'date'
+            ? DATE_OPTIONS.find((option) => option.id === value)?.label ?? value
+            : value,
+      }))
+  }, [activeFilters])
+
   const visibleProjects = useMemo(() => {
     const filtered = projects.filter((project) => {
       const industryMatch =
-        activeIndustry === DEFAULT_PILL || project.industry.includes(activeIndustry)
-      const skillMatch = activeSkill === DEFAULT_PILL || project.skills.includes(activeSkill)
+        activeFilters.industry === null || project.industry.includes(activeFilters.industry)
+      const skillMatch =
+        activeFilters.skill === null || project.skills.includes(activeFilters.skill)
       const channelMatch =
-        activeChannel === DEFAULT_PILL || project.channels.includes(activeChannel)
+        activeFilters.channel === null || project.channels.includes(activeFilters.channel)
       return industryMatch && skillMatch && channelMatch
     })
 
-    const sortDirection = activeDate === 'newest' ? -1 : 1
+    if (activeFilters.date === null) {
+      return filtered
+    }
+
+    const sortDirection = activeFilters.date === 'newest' ? -1 : 1
     return [...filtered].sort((a, b) => {
       if (a.year === b.year) return a.projectName.localeCompare(b.projectName)
       return (a.year - b.year) * sortDirection
     })
-  }, [activeIndustry, activeSkill, activeChannel, activeDate])
+  }, [activeFilters])
 
   function handlePillSelect(value) {
-    if (activeTab === 'industry') setActiveIndustry(value)
-    if (activeTab === 'skills') setActiveSkill(value)
-    if (activeTab === 'channels') setActiveChannel(value)
-    if (activeTab === 'date') setActiveDate(value)
+    const normalizedValue = value === DEFAULT_PILL ? null : value
+    setActiveFilters((previous) => ({
+      ...previous,
+      [activeTab]: normalizedValue,
+    }))
   }
 
-  const activePillValue =
-    activeTab === 'industry'
-      ? activeIndustry
-      : activeTab === 'skills'
-        ? activeSkill
-        : activeTab === 'channels'
-          ? activeChannel
-          : activeDate
+  function removeFilter(category) {
+    setActiveFilters((previous) => ({
+      ...previous,
+      [category]: null,
+    }))
+  }
+
+  function clearAllFilters() {
+    setActiveFilters({
+      industry: null,
+      skill: null,
+      channel: null,
+      date: null,
+    })
+  }
+
+  const activePillValue = activeFilters[activeTab] ?? DEFAULT_PILL
 
   return (
     <section id="work" className="work-grid-section">
@@ -95,6 +137,35 @@ export default function WorkGrid() {
             </button>
           ))}
         </div>
+
+        {hasActiveFilters ? (
+          <div className="work-grid-active-filters" aria-label="Active filters">
+            <div className="work-grid-active-filter-row">
+              {activeFilterEntries.map((entry) => (
+                <button
+                  key={entry.category}
+                  type="button"
+                  className="work-grid-active-filter-chip"
+                  onClick={() => removeFilter(entry.category)}
+                  aria-label={`Remove ${entry.label}: ${entry.value}`}
+                >
+                  <span className="work-grid-active-filter-label">{entry.label}: </span>
+                  <span className="work-grid-active-filter-value">{entry.value}</span>
+                  <span className="work-grid-active-filter-close" aria-hidden="true">
+                    ×
+                  </span>
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              className="work-grid-clear-all"
+              onClick={clearAllFilters}
+            >
+              Clear all
+            </button>
+          </div>
+        ) : null}
 
         <div className="work-grid-pill-row">
           {filterPills[activeTab].map((pill) => {
