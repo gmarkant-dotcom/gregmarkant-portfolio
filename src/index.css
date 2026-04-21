@@ -422,9 +422,10 @@ footer {
 
 .bio-panel-content p {
   font-size: 13px;
-  line-height: 1.8;
+  line-height: 1.5;
   color: var(--text-secondary);
   transition: var(--theme-transition);
+  margin-bottom: 20px;
 }
 
 .bio-panel-content p:last-child {
@@ -432,6 +433,7 @@ footer {
   color: var(--accent);
   font-style: italic;
   letter-spacing: 0.02em;
+  margin-bottom: 0;
 }
 
 .bio-headshot-img {

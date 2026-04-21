@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect } from 'react'
-import { getTheme, getAllThemes } from '../data/themes.config'
+import { themes, getTheme, getAllThemes } from '../data/themes.config'
 
 export function useTheme() {
-  const [activeTheme, setActiveTheme] = useState(null)
+  const [activeTheme, setActiveTheme] = useState(getTheme('body_talk'))
 
   const applyTheme = useCallback((themeId) => {
     const theme = getTheme(themeId)
@@ -15,13 +15,12 @@ export function useTheme() {
 
     // Set a data attribute on body for any CSS selectors that need it
     document.body.setAttribute('data-theme', themeId)
-    document.body.setAttribute('data-theme', theme.id)
 
     setActiveTheme(theme)
   }, [])
 
   const clearTheme = useCallback(() => {
-    getAllThemes().forEach((t) => {
+    Object.values(themes).forEach((t) => {
       Object.keys(t.tokens).forEach((property) => {
         document.documentElement.style.removeProperty(property)
       })
@@ -31,16 +30,8 @@ export function useTheme() {
   }, [])
 
   useEffect(() => {
-    const defaultTheme = getAllThemes()[0]
-    if (!defaultTheme) return undefined
-
-    const frameId = window.requestAnimationFrame(() => {
-      applyTheme(defaultTheme.id)
-    })
-
-    return () => {
-      window.cancelAnimationFrame(frameId)
-    }
+    if (!getAllThemes().length) return
+    applyTheme('body_talk')
   }, [applyTheme])
 
   return { activeTheme, applyTheme, clearTheme }
