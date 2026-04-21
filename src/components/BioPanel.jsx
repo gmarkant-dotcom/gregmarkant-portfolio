@@ -1,4 +1,4 @@
-import { useId, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import clsx from 'clsx'
 
 const BIO_TEXT = [
@@ -10,9 +10,28 @@ const BIO_TEXT = [
 
 export default function BioPanel() {
   const [open, setOpen] = useState(false)
+  const [recordOut, setRecordOut] = useState(false)
   const baseSvgId = useId().replace(/:/g, '')
   const sleeveClipId = `${baseSvgId}-sleeve`
   const vignetteId = `${baseSvgId}-vignette`
+
+  useEffect(() => {
+    if (open) {
+      setRecordOut(false)
+      const t = setTimeout(() => setRecordOut(true), 50)
+      return () => clearTimeout(t)
+    }
+    setRecordOut(false)
+    return undefined
+  }, [open])
+
+  const recordGroupStyle = {
+    transform: recordOut ? 'translateX(0px)' : 'translateX(-60px)',
+    transition: 'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)',
+    transitionDelay: recordOut ? '0.15s' : '0s',
+    animation: recordOut ? 'record-spin 8s linear infinite' : 'none',
+    animationDelay: recordOut ? '0.85s' : '0s',
+  }
 
   return (
     <>
@@ -50,26 +69,28 @@ export default function BioPanel() {
                 </radialGradient>
               </defs>
 
-              <circle cx="128" cy="55" r="48" fill="#0a0a0a" />
-              <circle cx="128" cy="55" r="42" fill="none" stroke="#222222" strokeWidth="0.8" />
-              <circle cx="128" cy="55" r="36" fill="none" stroke="#222222" strokeWidth="0.8" />
-              <circle cx="128" cy="55" r="30" fill="none" stroke="#222222" strokeWidth="0.8" />
-              <circle cx="128" cy="55" r="24" fill="none" stroke="#222222" strokeWidth="0.8" />
-              <circle cx="128" cy="55" r="18" fill="none" stroke="#222222" strokeWidth="0.8" />
-              <circle cx="128" cy="55" r="10" fill="var(--accent)" />
-              <text
-                x="128"
-                y="58"
-                textAnchor="middle"
-                fontSize="5"
-                fontFamily="var(--font-primary)"
-                fontWeight="500"
-                fill="var(--bg-primary)"
-                letterSpacing="0.5"
-              >
-                GM
-              </text>
-              <circle cx="128" cy="55" r="2" fill="#0a0a0a" />
+              <g style={recordGroupStyle}>
+                <circle cx="128" cy="55" r="48" fill="#0a0a0a" />
+                <circle cx="128" cy="55" r="42" fill="none" stroke="#222222" strokeWidth="0.8" />
+                <circle cx="128" cy="55" r="36" fill="none" stroke="#222222" strokeWidth="0.8" />
+                <circle cx="128" cy="55" r="30" fill="none" stroke="#222222" strokeWidth="0.8" />
+                <circle cx="128" cy="55" r="24" fill="none" stroke="#222222" strokeWidth="0.8" />
+                <circle cx="128" cy="55" r="18" fill="none" stroke="#222222" strokeWidth="0.8" />
+                <circle cx="128" cy="55" r="10" fill="var(--accent)" />
+                <text
+                  x="128"
+                  y="58"
+                  textAnchor="middle"
+                  fontSize="5"
+                  fontFamily="var(--font-primary)"
+                  fontWeight="500"
+                  fill="var(--bg-primary)"
+                  letterSpacing="0.5"
+                >
+                  GM
+                </text>
+                <circle cx="128" cy="55" r="2" fill="#0a0a0a" />
+              </g>
 
               <rect x="0" y="0" width="90" height="90" rx="4" fill="#111111" />
               <image

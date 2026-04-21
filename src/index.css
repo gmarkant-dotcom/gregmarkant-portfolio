@@ -420,6 +420,20 @@ footer {
   transform: translateX(4px);
 }
 
+.bio-sleeve-wrap svg g {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes record-spin {
+  from {
+    transform: translateX(0px) rotate(0deg);
+  }
+  to {
+    transform: translateX(0px) rotate(360deg);
+  }
+}
+
 .bio-panel-content p {
   font-size: 13px;
   line-height: 1.5;
