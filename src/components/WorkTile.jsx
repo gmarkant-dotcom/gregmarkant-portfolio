@@ -6,17 +6,23 @@ function formatBrandName(brand) {
 
 export default function WorkTile({ project }) {
   const hasHeroImage = Boolean(project.heroImage)
-  const frontStyle = hasHeroImage ? { backgroundImage: `url(${project.heroImage})` } : {}
 
   return (
     <article className="work-tile" aria-label={`${project.brand} - ${project.projectName}`}>
       <div className="work-tile-inner">
-        <section className="work-tile-face work-tile-front" style={frontStyle}>
-          {!hasHeroImage ? (
+        <section className="work-tile-face work-tile-front tile-front">
+          {hasHeroImage ? (
+            <img
+              src={project.heroImage}
+              alt={`${project.brand} — ${project.projectName}`}
+              loading="lazy"
+              style={{ objectPosition: project.imagePosition || 'center center' }}
+            />
+          ) : (
             <div className="work-tile-placeholder">
               <span>{formatBrandName(project.brand)}</span>
             </div>
-          ) : null}
+          )}
 
           <div className="work-tile-front-overlay tile-front-label">
             <span className="tile-front-client">{project.brand}</span>

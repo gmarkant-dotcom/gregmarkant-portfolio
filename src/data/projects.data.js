@@ -19,6 +19,7 @@ export const projects = [
     ],
     year: 2024,
     heroImage: '/projects/talismanconsulting.png',
+    imagePosition: 'left center',
   },
   {
     id: 'talisman-roborock-001',
@@ -124,6 +125,7 @@ export const projects = [
     ],
     year: 2023,
     heroImage: '/projects/tag.jpg',
+    imagePosition: 'left center',
   },
   {
     id: 'tag-loreal-001',
@@ -145,6 +147,7 @@ export const projects = [
     ],
     year: 2023,
     heroImage: '/projects/lorealcreative.jpg',
+    imagePosition: 'right center',
   },
   {
     id: 'tag-moderna-001',
