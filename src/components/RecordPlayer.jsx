@@ -55,21 +55,21 @@ export default function RecordPlayer({ applyTheme, activeTheme }) {
   }, [])
 
   useEffect(() => {
-    try {
-      playTrack('body_talk')
-    } catch {
-      // Autoplay blocked or other — first interaction will retry
-    }
-  }, [playTrack])
-
-  useEffect(() => {
     let started = false
 
+    const timeoutId = setTimeout(() => {
+      try {
+        playTrack('body_talk')
+      } catch {
+        // ignore
+      }
+    }, 300)
+
     function startOnInteraction() {
+      clearTimeout(timeoutId)
       if (started) return
-      started = true
-      const a = audioRef.current
-      if (!a || a.paused || a.ended) {
+      if (!audioRef.current || audioRef.current.paused) {
+        started = true
         try {
           playTrack('body_talk')
         } catch {
@@ -77,17 +77,18 @@ export default function RecordPlayer({ applyTheme, activeTheme }) {
         }
       }
       document.removeEventListener('click', startOnInteraction)
-      window.removeEventListener('scroll', startOnInteraction)
+      document.removeEventListener('touchstart', startOnInteraction)
       document.removeEventListener('keydown', startOnInteraction)
     }
 
     document.addEventListener('click', startOnInteraction)
-    window.addEventListener('scroll', startOnInteraction, { passive: true })
+    document.addEventListener('touchstart', startOnInteraction, { passive: true })
     document.addEventListener('keydown', startOnInteraction)
 
     return () => {
+      clearTimeout(timeoutId)
       document.removeEventListener('click', startOnInteraction)
-      window.removeEventListener('scroll', startOnInteraction)
+      document.removeEventListener('touchstart', startOnInteraction)
       document.removeEventListener('keydown', startOnInteraction)
     }
   }, [playTrack])
