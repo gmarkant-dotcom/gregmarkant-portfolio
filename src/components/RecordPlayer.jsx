@@ -45,6 +45,53 @@ export default function RecordPlayer({ applyTheme, activeTheme }) {
     [audioMuted, stopAudio],
   )
 
+  const playThemeAudioRef = useRef(playThemeAudio)
+  playThemeAudioRef.current = playThemeAudio
+
+  const playTrack = useCallback((themeId) => {
+    const theme = getTheme(themeId)
+    if (!theme) return
+    playThemeAudioRef.current(theme)
+  }, [])
+
+  useEffect(() => {
+    try {
+      playTrack('body_talk')
+    } catch {
+      // Autoplay blocked or other — first interaction will retry
+    }
+  }, [playTrack])
+
+  useEffect(() => {
+    let started = false
+
+    function startOnInteraction() {
+      if (started) return
+      started = true
+      const a = audioRef.current
+      if (!a || a.paused || a.ended) {
+        try {
+          playTrack('body_talk')
+        } catch {
+          // ignore
+        }
+      }
+      document.removeEventListener('click', startOnInteraction)
+      window.removeEventListener('scroll', startOnInteraction)
+      document.removeEventListener('keydown', startOnInteraction)
+    }
+
+    document.addEventListener('click', startOnInteraction)
+    window.addEventListener('scroll', startOnInteraction, { passive: true })
+    document.addEventListener('keydown', startOnInteraction)
+
+    return () => {
+      document.removeEventListener('click', startOnInteraction)
+      window.removeEventListener('scroll', startOnInteraction)
+      document.removeEventListener('keydown', startOnInteraction)
+    }
+  }, [playTrack])
+
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = audioMuted ? 0 : 0.7
