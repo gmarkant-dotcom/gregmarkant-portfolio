@@ -36,73 +36,7 @@ export default function BioPanel() {
 
         <div className="bio-panel-headshot">
           <div className="bio-record">
-            <svg
-              viewBox="0 0 120 120"
-              width="96"
-              height="96"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="60" cy="60" r="58" fill="var(--text-primary)" />
-              <circle
-                cx="60"
-                cy="60"
-                r="50"
-                fill="none"
-                stroke="var(--bg-secondary)"
-                strokeWidth="0.4"
-                opacity="0.3"
-              />
-              <circle
-                cx="60"
-                cy="60"
-                r="44"
-                fill="none"
-                stroke="var(--bg-secondary)"
-                strokeWidth="0.4"
-                opacity="0.3"
-              />
-              <circle
-                cx="60"
-                cy="60"
-                r="38"
-                fill="none"
-                stroke="var(--bg-secondary)"
-                strokeWidth="0.4"
-                opacity="0.3"
-              />
-              <circle
-                cx="60"
-                cy="60"
-                r="32"
-                fill="none"
-                stroke="var(--bg-secondary)"
-                strokeWidth="0.4"
-                opacity="0.3"
-              />
-              <circle
-                cx="60"
-                cy="60"
-                r="26"
-                fill="none"
-                stroke="var(--bg-secondary)"
-                strokeWidth="0.4"
-                opacity="0.3"
-              />
-              <circle cx="60" cy="60" r="16" fill="var(--accent)" />
-              <text
-                x="60"
-                y="64"
-                textAnchor="middle"
-                fontSize="10"
-                fontFamily="var(--font-primary)"
-                fontWeight="500"
-                fill="var(--bg-primary)"
-                letterSpacing="1"
-              >
-                GM
-              </text>
-              <circle cx="60" cy="60" r="2.5" fill="var(--bg-secondary)" />
-            </svg>
+            <img src="/headshot.jpg" alt="Greg Markant" className="bio-headshot-img" />
           </div>
         </div>
 

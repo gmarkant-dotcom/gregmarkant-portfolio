@@ -18,7 +18,7 @@ export const projects = [
       'Stakeholder Management',
     ],
     year: 2024,
-    heroImage: null,
+    heroImage: '/projects/talismanconsulting.png',
   },
   {
     id: 'talisman-roborock-001',
@@ -39,7 +39,7 @@ export const projects = [
       'Stakeholder Management',
     ],
     year: 2025,
-    heroImage: null,
+    heroImage: '/projects/roborock.jpg',
   },
   {
     id: 'talisman-mlv-001',
@@ -60,7 +60,7 @@ export const projects = [
       'P&L Management',
     ],
     year: 2025,
-    heroImage: null,
+    heroImage: '/projects/mlv.jpg',
   },
   {
     id: 'talisman-mercury-001',
@@ -81,7 +81,7 @@ export const projects = [
       'Stakeholder Management',
     ],
     year: 2025,
-    heroImage: null,
+    heroImage: '/projects/mercury.jpg',
   },
   {
     id: 'tag-doordash-001',
@@ -102,7 +102,7 @@ export const projects = [
       'Content Strategy',
     ],
     year: 2022,
-    heroImage: null,
+    heroImage: '/projects/doordash.png',
   },
   {
     id: 'tag-coe-001',
@@ -144,7 +144,7 @@ export const projects = [
       'Stakeholder Management',
     ],
     year: 2023,
-    heroImage: null,
+    heroImage: '/projects/lorealcreative.jpg',
   },
   {
     id: 'tag-moderna-001',
@@ -165,7 +165,7 @@ export const projects = [
       'Operational Excellence',
     ],
     year: 2023,
-    heroImage: null,
+    heroImage: '/projects/moderna.jpg',
   },
   {
     id: 'iris-adidas-olympics-001',
@@ -186,7 +186,7 @@ export const projects = [
       'Brand Strategy',
     ],
     year: 2020,
-    heroImage: null,
+    heroImage: '/projects/whatsonemore.png',
   },
   {
     id: 'iris-adidas-avacourt-001',
@@ -207,7 +207,7 @@ export const projects = [
       'Sports Marketing',
     ],
     year: 2021,
-    heroImage: null,
+    heroImage: '/projects/adidasavacourtlaunch.jpg',
   },
   {
     id: 'iris-paypal-001',
@@ -228,7 +228,7 @@ export const projects = [
       'P&L Management',
     ],
     year: 2020,
-    heroImage: null,
+    heroImage: '/projects/paypaltouchfreepayments.png',
   },
   {
     id: 'iris-siriusxm-001',
@@ -249,7 +249,7 @@ export const projects = [
       'Sports Marketing',
     ],
     year: 2019,
-    heroImage: null,
+    heroImage: '/projects/soulstation.jpg',
   },
   {
     id: 'iris-samsung-hq-001',
@@ -270,7 +270,7 @@ export const projects = [
       'Project Management',
     ],
     year: 2019,
-    heroImage: null,
+    heroImage: '/projects/homeappliance.jpg',
   },
   {
     id: 'iris-samsung-verizon-001',
@@ -291,7 +291,7 @@ export const projects = [
       'Brand Strategy',
     ],
     year: 2018,
-    heroImage: null,
+    heroImage: '/projects/training.jpg',
   },
   {
     id: 'edelman-lga-001',
@@ -311,7 +311,7 @@ export const projects = [
       'Operational Excellence',
     ],
     year: 2016,
-    heroImage: null,
+    heroImage: '/projects/laguardia.jpg',
   },
   {
     id: 'edelman-takeda-001',
@@ -332,7 +332,7 @@ export const projects = [
       'Social Strategy',
     ],
     year: 2017,
-    heroImage: null,
+    heroImage: '/projects/compose.jpg',
   },
   {
     id: 'edelman-unilever-001',
@@ -353,7 +353,7 @@ export const projects = [
       'Community Engagement',
     ],
     year: 2018,
-    heroImage: null,
+    heroImage: '/projects/knorrtomydoor.jpg',
   },
   {
     id: 'mkg-chase-vip-001',
@@ -374,7 +374,7 @@ export const projects = [
       'P&L Management',
     ],
     year: 2014,
-    heroImage: null,
+    heroImage: '/projects/chaselounge.jpg',
   },
   {
     id: 'mkg-chase-locker-001',
@@ -395,7 +395,7 @@ export const projects = [
       'Project Management',
     ],
     year: 2014,
-    heroImage: null,
+    heroImage: '/projects/lockerroom.jpg',
   },
   {
     id: 'mkg-chase-usopen-001',
@@ -416,7 +416,7 @@ export const projects = [
       'Sponsorship',
     ],
     year: 2014,
-    heroImage: null,
+    heroImage: '/projects/usopen.png',
   },
   {
     id: 'cpf-summerstage-001',
@@ -437,7 +437,7 @@ export const projects = [
       'Brand Strategy',
     ],
     year: 2013,
-    heroImage: null,
+    heroImage: '/projects/summerstage.jpg',
   },
   {
     id: 'cpf-lacoste-001',
@@ -458,7 +458,7 @@ export const projects = [
       'Project Management',
     ],
     year: 2013,
-    heroImage: null,
+    heroImage: '/projects/tennis.jpg',
   },
 ]
 
