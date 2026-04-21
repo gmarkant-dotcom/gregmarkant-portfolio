@@ -408,27 +408,16 @@ footer {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .bio-sleeve-wrap svg {
-  transition: transform 0.4s ease;
   overflow: visible;
+  transition: transform 0.3s ease;
 }
 
-.bio-sleeve-wrap svg:hover circle[r='35'] {
-  animation: spin-slow 4s linear infinite;
-}
-
-@keyframes spin-slow {
-  from {
-    transform-origin: 82px 72px;
-    transform: rotate(0deg);
-  }
-  to {
-    transform-origin: 82px 72px;
-    transform: rotate(360deg);
-  }
+.bio-sleeve-wrap svg:hover {
+  transform: translateX(4px);
 }
 
 .bio-panel-content p {

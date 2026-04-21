@@ -10,7 +10,9 @@ const BIO_TEXT = [
 
 export default function BioPanel() {
   const [open, setOpen] = useState(false)
-  const sleeveClipId = useId().replace(/:/g, '')
+  const baseSvgId = useId().replace(/:/g, '')
+  const sleeveClipId = `${baseSvgId}-sleeve`
+  const vignetteId = `${baseSvgId}-vignette`
 
   return (
     <>
@@ -37,24 +39,27 @@ export default function BioPanel() {
 
         <div className="bio-panel-headshot">
           <div className="bio-sleeve-wrap">
-            <svg viewBox="0 0 110 120" width="110" height="120" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 160 110" width="160" height="110" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <clipPath id={sleeveClipId}>
-                  <rect x="0" y="10" width="80" height="80" rx="3" />
+                  <rect x="0" y="0" width="90" height="90" rx="4" />
                 </clipPath>
+                <radialGradient id={vignetteId} cx="50%" cy="50%" r="50%">
+                  <stop offset="60%" stopColor="transparent" />
+                  <stop offset="100%" stopColor="rgba(0,0,0,0.6)" />
+                </radialGradient>
               </defs>
 
-              <circle cx="82" cy="72" r="36" fill="#111111" opacity="0.3" />
-
-              <circle cx="82" cy="72" r="35" fill="#111111" />
-              <circle cx="82" cy="72" r="30" fill="none" stroke="#333333" strokeWidth="0.5" />
-              <circle cx="82" cy="72" r="24" fill="none" stroke="#333333" strokeWidth="0.5" />
-              <circle cx="82" cy="72" r="18" fill="none" stroke="#333333" strokeWidth="0.5" />
-              <circle cx="82" cy="72" r="12" fill="none" stroke="#333333" strokeWidth="0.5" />
-              <circle cx="82" cy="72" r="8" fill="var(--accent)" />
+              <circle cx="128" cy="55" r="48" fill="#0a0a0a" />
+              <circle cx="128" cy="55" r="42" fill="none" stroke="#222222" strokeWidth="0.8" />
+              <circle cx="128" cy="55" r="36" fill="none" stroke="#222222" strokeWidth="0.8" />
+              <circle cx="128" cy="55" r="30" fill="none" stroke="#222222" strokeWidth="0.8" />
+              <circle cx="128" cy="55" r="24" fill="none" stroke="#222222" strokeWidth="0.8" />
+              <circle cx="128" cy="55" r="18" fill="none" stroke="#222222" strokeWidth="0.8" />
+              <circle cx="128" cy="55" r="10" fill="var(--accent)" />
               <text
-                x="82"
-                y="75"
+                x="128"
+                y="58"
                 textAnchor="middle"
                 fontSize="5"
                 fontFamily="var(--font-primary)"
@@ -64,37 +69,30 @@ export default function BioPanel() {
               >
                 GM
               </text>
-              <circle cx="82" cy="72" r="1.5" fill="#111111" />
+              <circle cx="128" cy="55" r="2" fill="#0a0a0a" />
 
-              <rect
-                x="0"
-                y="10"
-                width="80"
-                height="80"
-                rx="3"
-                fill="var(--bg-secondary)"
-                stroke="var(--border-color)"
-                strokeWidth="0.5"
-              />
+              <rect x="0" y="0" width="90" height="90" rx="4" fill="#111111" />
               <image
                 href="/IMG_9577.jpeg"
                 x="0"
-                y="10"
-                width="80"
-                height="80"
+                y="0"
+                width="90"
+                height="90"
                 clipPath={`url(#${sleeveClipId})`}
                 preserveAspectRatio="xMidYMid slice"
               />
+              <rect x="0" y="0" width="90" height="90" rx="4" fill={`url(#${vignetteId})`} />
               <rect
                 x="0"
-                y="10"
-                width="80"
-                height="80"
-                rx="3"
+                y="0"
+                width="90"
+                height="90"
+                rx="4"
                 fill="none"
-                stroke="var(--border-color)"
+                stroke="rgba(255,255,255,0.15)"
                 strokeWidth="0.5"
               />
+              <rect x="82" y="0" width="8" height="90" rx="0" fill="rgba(0,0,0,0.3)" />
             </svg>
           </div>
         </div>

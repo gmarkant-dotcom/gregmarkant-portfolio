@@ -19,16 +19,16 @@ export default function WorkTile({ project }) {
           ) : null}
 
           <div className="work-tile-front-overlay tile-front-label">
-            <h3 className="work-tile-brand">{project.brand}</h3>
-            <p className="work-tile-project">{project.projectName}</p>
-            <div className="work-tile-industry-row">
+            <span className="tile-front-client">{project.brand}</span>
+            <span className="tile-front-title">{project.projectName}</span>
+            <div className="tile-front-industry-pills">
               {project.industry.map((industry) => (
-                <span key={industry} className="work-tile-industry-pill">
+                <span key={industry} className="tile-front-industry-pill">
                   {industry}
                 </span>
               ))}
             </div>
-            <p className="work-tile-front-year">{project.year}</p>
+            <span className="tile-front-year">{project.year}</span>
           </div>
         </section>
 
