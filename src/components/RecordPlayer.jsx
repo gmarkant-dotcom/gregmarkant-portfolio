@@ -165,7 +165,7 @@ export default function RecordPlayer({ applyTheme, activeTheme }) {
             </div>
             <div className="record-player__band-controls">
               <p className={clsx('record-player__now-playing', { visible: !!activeTheme })}>
-                {activeTheme ? `Now playing: ${activeTheme.artist} — ${activeTheme.label}` : ''}
+                {activeTheme ? `Now playing: ${activeTheme.nowPlaying}` : ''}
               </p>
               {audioSessionActive && !reduceMotion ? (
                 <button type="button" className="record-player__mute" onClick={() => setAudioMuted((m) => !m)}>
