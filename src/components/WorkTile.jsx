@@ -18,7 +18,7 @@ export default function WorkTile({ project }) {
             </div>
           ) : null}
 
-          <div className="work-tile-front-overlay">
+          <div className="work-tile-front-overlay tile-front-label">
             <h3 className="work-tile-brand">{project.brand}</h3>
             <p className="work-tile-project">{project.projectName}</p>
             <div className="work-tile-industry-row">

@@ -404,11 +404,31 @@ footer {
   color: var(--text-primary);
 }
 
-.bio-record {
+.bio-sleeve-wrap {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 4px;
+  justify-content: flex-start;
+  margin-bottom: 8px;
+}
+
+.bio-sleeve-wrap svg {
+  transition: transform 0.4s ease;
+  overflow: visible;
+}
+
+.bio-sleeve-wrap svg:hover circle[r='35'] {
+  animation: spin-slow 4s linear infinite;
+}
+
+@keyframes spin-slow {
+  from {
+    transform-origin: 82px 72px;
+    transform: rotate(0deg);
+  }
+  to {
+    transform-origin: 82px 72px;
+    transform: rotate(360deg);
+  }
 }
 
 .bio-panel-content p {
@@ -427,11 +447,3 @@ footer {
   margin-bottom: 0;
 }
 
-.bio-headshot-img {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: top;
-  border: 0.5px solid var(--accent);
-}

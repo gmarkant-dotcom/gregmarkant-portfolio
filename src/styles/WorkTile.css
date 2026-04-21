@@ -60,9 +60,23 @@
   background-size: cover;
 }
 
+.work-tile-front::before,
+.tile-front::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, transparent 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
 .work-tile-placeholder {
   position: absolute;
   inset: 0;
+  z-index: 2;
   display: grid;
   place-items: center;
   padding: 1rem;
@@ -73,15 +87,20 @@
   text-align: center;
 }
 
+.tile-front-label,
 .work-tile-front-overlay {
-  position: relative;
-  z-index: 1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
   width: 100%;
-  padding: 1rem;
+  padding: 60px 16px 16px;
   background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0) 25%,
-    color-mix(in srgb, var(--bg-primary) 82%, transparent) 100%
+    to top,
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.6) 50%,
+    transparent 100%
   );
 }
 
