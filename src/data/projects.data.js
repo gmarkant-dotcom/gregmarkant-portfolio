@@ -123,7 +123,7 @@ export const projects = [
       'Stakeholder Management',
     ],
     year: 2023,
-    heroImage: null,
+    heroImage: '/projects/tag.jpg',
   },
   {
     id: 'tag-loreal-001',
