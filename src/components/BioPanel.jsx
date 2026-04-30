@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from 'react'
+import { useState } from 'react'
 import clsx from 'clsx'
 
 const BIO_TEXT = [
@@ -10,28 +10,6 @@ const BIO_TEXT = [
 
 export default function BioPanel() {
   const [open, setOpen] = useState(false)
-  const [recordOut, setRecordOut] = useState(false)
-  const baseSvgId = useId().replace(/:/g, '')
-  const sleeveClipId = `${baseSvgId}-sleeve`
-  const vignetteId = `${baseSvgId}-vignette`
-
-  useEffect(() => {
-    if (open) {
-      setRecordOut(false)
-      const t = setTimeout(() => setRecordOut(true), 50)
-      return () => clearTimeout(t)
-    }
-    setRecordOut(false)
-    return undefined
-  }, [open])
-
-  const recordGroupStyle = {
-    transform: recordOut ? 'translateX(0px)' : 'translateX(-60px)',
-    transition: 'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)',
-    transitionDelay: recordOut ? '0.15s' : '0s',
-    animation: recordOut ? 'record-spin 8s linear infinite' : 'none',
-    animationDelay: recordOut ? '0.85s' : '0s',
-  }
 
   return (
     <>
@@ -57,65 +35,7 @@ export default function BioPanel() {
         </button>
 
         <div className="bio-panel-headshot">
-          <div className="bio-sleeve-wrap">
-            <svg viewBox="0 0 160 110" width="160" height="110" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <clipPath id={sleeveClipId}>
-                  <rect x="0" y="0" width="90" height="90" rx="4" />
-                </clipPath>
-                <radialGradient id={vignetteId} cx="50%" cy="50%" r="50%">
-                  <stop offset="60%" stopColor="transparent" />
-                  <stop offset="100%" stopColor="rgba(0,0,0,0.6)" />
-                </radialGradient>
-              </defs>
-
-              <g style={recordGroupStyle}>
-                <circle cx="128" cy="55" r="48" fill="#0a0a0a" />
-                <circle cx="128" cy="55" r="42" fill="none" stroke="#222222" strokeWidth="0.8" />
-                <circle cx="128" cy="55" r="36" fill="none" stroke="#222222" strokeWidth="0.8" />
-                <circle cx="128" cy="55" r="30" fill="none" stroke="#222222" strokeWidth="0.8" />
-                <circle cx="128" cy="55" r="24" fill="none" stroke="#222222" strokeWidth="0.8" />
-                <circle cx="128" cy="55" r="18" fill="none" stroke="#222222" strokeWidth="0.8" />
-                <circle cx="128" cy="55" r="10" fill="var(--accent)" />
-                <text
-                  x="128"
-                  y="58"
-                  textAnchor="middle"
-                  fontSize="5"
-                  fontFamily="var(--font-primary)"
-                  fontWeight="500"
-                  fill="var(--bg-primary)"
-                  letterSpacing="0.5"
-                >
-                  GM
-                </text>
-                <circle cx="128" cy="55" r="2" fill="#0a0a0a" />
-              </g>
-
-              <rect x="0" y="0" width="90" height="90" rx="4" fill="#111111" />
-              <image
-                href="/IMG_9577.jpeg"
-                x="0"
-                y="0"
-                width="90"
-                height="90"
-                clipPath={`url(#${sleeveClipId})`}
-                preserveAspectRatio="xMidYMid slice"
-              />
-              <rect x="0" y="0" width="90" height="90" rx="4" fill={`url(#${vignetteId})`} />
-              <rect
-                x="0"
-                y="0"
-                width="90"
-                height="90"
-                rx="4"
-                fill="none"
-                stroke="rgba(255,255,255,0.15)"
-                strokeWidth="0.5"
-              />
-              <rect x="82" y="0" width="8" height="90" rx="0" fill="rgba(0,0,0,0.3)" />
-            </svg>
-          </div>
+          <img src="/headshot.jpg" alt="Greg Markant" className="bio-headshot-img" />
         </div>
 
         <div className="bio-panel-content">
