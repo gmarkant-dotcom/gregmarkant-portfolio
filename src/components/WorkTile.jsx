@@ -42,7 +42,9 @@ export default function WorkTile({ project }) {
           <div className="work-tile-back-header">
             <div className="work-tile-company-wrap">
               <p className="work-tile-company">{project.company}</p>
-              <p className="work-tile-agency-network">{project.agencyNetwork}</p>
+              {project.agencyNetwork && (
+                <p className="work-tile-agency-network">{project.agencyNetwork}</p>
+              )}
             </div>
           </div>
 

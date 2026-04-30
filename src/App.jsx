@@ -1,24 +1,13 @@
-import Ticker from './components/Ticker'
-import RecordPlayer from './components/RecordPlayer'
-import ContactTab from './components/ContactTab'
-import BioPanel from './components/BioPanel'
-import WorkGrid from './components/WorkGrid'
-import { useTheme } from './hooks/useTheme'
+import { Routes, Route } from 'react-router-dom'
+import MainPage from './pages/MainPage'
+import WorkExamplesEvents from './pages/WorkExamplesEvents'
 
 function App() {
-  const { activeTheme, applyTheme } = useTheme()
-
   return (
-    <div>
-      <div id="page-texture" aria-hidden="true" />
-      <ContactTab />
-      <Ticker activeThemeId={activeTheme?.id ?? 'purple_rain'} />
-      <BioPanel />
-      <RecordPlayer applyTheme={applyTheme} activeTheme={activeTheme} />
-      <div className="site-wrapper">
-        <WorkGrid activeThemeId={activeTheme?.id} />
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+      <Route path="/workexamples/events" element={<WorkExamplesEvents />} />
+    </Routes>
   )
 }
 
