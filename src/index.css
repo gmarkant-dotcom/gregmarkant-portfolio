@@ -404,6 +404,15 @@ footer {
   color: var(--text-primary);
 }
 
+.bio-headshot-img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  border: 0.5px solid var(--accent);
+}
+
 .bio-sleeve-wrap {
   display: flex;
   align-items: center;
