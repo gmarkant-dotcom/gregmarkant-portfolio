@@ -55,10 +55,10 @@
 
 .events-intro {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   align-items: flex-start;
-  margin-bottom: 28px;
-  padding-bottom: 24px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
   border-bottom: 0.5px solid var(--border-color);
 }
 
@@ -74,30 +74,30 @@
 }
 
 .events-intro-message p {
-  font-size: 12px;
-  line-height: 1.5;
+  font-size: 11px;
+  line-height: 1.4;
   color: var(--text-secondary);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .events-intro-message p:first-child {
   font-weight: 600;
   color: var(--text-primary);
-  font-size: 12px;
-  margin-bottom: 6px;
+  font-size: 11px;
+  margin-bottom: 4px;
 }
 
 .events-intro-message p:last-child { margin-bottom: 0; }
 
-.events-client-group { margin-bottom: 36px; }
+.events-client-group { margin-bottom: 18px; }
 
 .events-client-header {
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 20px;
-  padding-bottom: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 6px;
   border-bottom: 0.5px solid var(--accent);
   font-weight: 500;
 }
@@ -105,7 +105,7 @@
 .events-client-projects {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 20px;
 }
 
 .events-project-card {
@@ -157,8 +157,8 @@
 
 .events-gallery-main {
   position: relative;
-  height: 200px;
   width: 100%;
+  aspect-ratio: 16/9;
   overflow: hidden;
   border-radius: 3px;
   background-color: var(--bg-secondary);
@@ -216,8 +216,8 @@
 
 .events-video-wrap {
   position: relative;
-  height: 200px;
   width: 100%;
+  aspect-ratio: 16/9;
   border-radius: 3px;
   overflow: hidden;
   background-color: var(--bg-secondary);
