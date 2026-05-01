@@ -160,20 +160,26 @@
   border: 0.5px solid rgba(255, 255, 255, 0.2);
 }
 
-.work-tile-back,
-.tile-back {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
-  background-color: var(--tile-bg);
-  border: 0.5px solid var(--accent);
+.work-tile-back {
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  overflow: hidden;
   height: 100%;
   box-sizing: border-box;
+  padding: 20px;
+  overflow: hidden;
+  background-color: var(--tile-bg);
+  border: 0.5px solid var(--accent);
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+}
+
+.work-tile-back-header {
+  flex-shrink: 0;
+  margin-bottom: 8px;
 }
 
 .work-tile-company-wrap {
@@ -204,9 +210,11 @@
 }
 
 .work-tile-caption-wrap {
+  flex: 1;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  margin-bottom: 8px;
 }
 
 .work-tile-caption,
@@ -217,33 +225,18 @@
   transition: var(--theme-transition);
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 7;
+  -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
 }
 
-.tile-back-footer {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  padding-top: 12px;
-  border-top: 0.5px solid var(--border-color);
-  margin-top: auto;
-  flex-shrink: 0;
-}
-
-.tile-back-skills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  justify-content: flex-end;
-}
-
 .work-tile-roles {
-  color: var(--text-secondary);
   font-size: 11px;
   font-style: italic;
+  color: var(--text-secondary);
   opacity: 0;
+  margin-top: 6px;
   transition: opacity 0.2s ease;
+  flex-shrink: 0;
 }
 
 .work-tile-caption-wrap:hover .work-tile-roles {
@@ -253,7 +246,9 @@
 .work-tile-skills-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.3rem;
+  gap: 4px;
+  margin-bottom: 6px;
+  flex-shrink: 0;
 }
 
 .work-tile-skill-pill {
@@ -268,7 +263,9 @@
 .work-tile-channels-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.3rem;
+  gap: 4px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
 }
 
 .work-tile-channel-pill {
@@ -282,9 +279,10 @@
 }
 
 .work-tile-back-year {
-  margin-top: auto;
-  align-self: flex-end;
-  color: var(--text-secondary);
   font-size: 11px;
-  line-height: 1;
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+  text-align: right;
+  flex-shrink: 0;
+  margin-top: auto;
 }

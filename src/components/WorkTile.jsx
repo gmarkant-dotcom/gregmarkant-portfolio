@@ -49,7 +49,9 @@ export default function WorkTile({ project }) {
           </div>
 
           <div className="work-tile-caption-wrap">
-            <p className="work-tile-caption">{project.caption}</p>
+            <p className="work-tile-caption" title={project.caption}>
+              {project.caption}
+            </p>
             <p className="work-tile-roles">{project.roles}</p>
           </div>
 
