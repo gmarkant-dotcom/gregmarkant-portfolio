@@ -166,9 +166,10 @@
   border: 0.5px solid var(--accent);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 20px;
   overflow: hidden;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .work-tile-company-wrap {
@@ -216,6 +217,23 @@
   overflow: hidden;
   flex: 1;
   margin-bottom: 12px;
+}
+
+.tile-back-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 0.5px solid var(--border-color);
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.tile-back-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: flex-end;
 }
 
 .work-tile-roles {

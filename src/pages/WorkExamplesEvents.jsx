@@ -159,7 +159,9 @@ function EventsProjectCard({ project }) {
       <div className="events-project-info-col">
         <h3 className="events-project-name">{projectName}</h3>
         {eventsData.budget && (
-          <p className="events-project-budget">Approx. Annual Budget: {eventsData.budget}</p>
+          <p className="events-project-budget">
+            {String(project.year).includes(',') ? 'Approx. Annual Budget' : 'Approx. Budget'}: {eventsData.budget}
+          </p>
         )}
         <p className="events-project-year">{year}</p>
         <p className="events-project-caption">{caption}</p>
