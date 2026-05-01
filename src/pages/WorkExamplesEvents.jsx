@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import { getTheme } from '../data/themes.config'
 import { getEventProjects } from '../data/projects.data'
 import BioPanel from '../components/BioPanel'
+import ContactTab from '../components/ContactTab'
 import '../styles/WorkExamplesEvents.css'
 
 const PERSONAL_MESSAGE = [
@@ -232,6 +233,7 @@ export default function WorkExamplesEvents() {
         </div>
       </div>
       <BioPanel />
+      <ContactTab />
     </>
   )
 }
