@@ -8,6 +8,10 @@
   -webkit-perspective: 1000px;
 }
 
+.tile-wrapper {
+  height: 400px;
+}
+
 .work-tile-inner,
 .tile-inner {
   position: relative;
@@ -207,16 +211,14 @@
 
 .work-tile-caption,
 .tile-back-caption {
-  color: var(--text-secondary);
   font-size: 12px;
+  color: var(--text-secondary);
   line-height: 1.6;
   transition: var(--theme-transition);
-  display: -webkit-box;
-  -webkit-line-clamp: 6;
-  -webkit-box-orient: vertical;
   overflow: hidden;
-  flex: 1;
-  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
 }
 
 .tile-back-footer {
