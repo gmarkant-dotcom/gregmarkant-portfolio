@@ -179,6 +179,11 @@ export default function WorkExamplesEvents() {
             {grouped.map(({ client, projects }) => (
               <div key={client} className="events-client-group">
                 <h2 className="events-client-header">{client}</h2>
+                {client === 'JPMorgan Chase' && (
+                  <p className="events-client-intro">
+                    As lead client manager for JPMorgan Chase's Sports & Entertainment team, I shaped their fan activation strategy and event execution across a national portfolio of premier sports and entertainment sponsorships. I oversaw all agency disciplines including design, creative, technology, fabrication, and operations. Over 2 years, I personally led the planning and execution for activations at world-class experiences such as US Open tennis, Madison Square Garden concerts, Knicks and Rangers games, MetLife Stadium Jets and Giants games, and more.
+                  </p>
+                )}
                 <div className="events-client-projects">
                   {projects.map((project) => (
                     <EventsProjectCard key={project.id} project={project} />
