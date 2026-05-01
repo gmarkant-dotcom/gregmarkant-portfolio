@@ -83,11 +83,24 @@ export default function WorkGrid() {
       return filtered
     }
 
-    const sortDirection = activeFilters.date === 'newest' ? -1 : 1
-    return [...filtered].sort((a, b) => {
-      if (a.year === b.year) return a.projectName.localeCompare(b.projectName)
-      return (a.year - b.year) * sortDirection
+    const result = [...filtered]
+    if (activeFilters.date === 'newest') {
+      // Newest first
+      result.sort((a, b) => {
+        const yearA = parseInt(String(a.year).split(',')[0].trim())
+        const yearB = parseInt(String(b.year).split(',')[0].trim())
+        return yearB - yearA
+      })
+      return result
+    }
+
+    // Oldest first
+    result.sort((a, b) => {
+      const yearA = parseInt(String(a.year).split(',')[0].trim())
+      const yearB = parseInt(String(b.year).split(',')[0].trim())
+      return yearA - yearB
     })
+    return result
   }, [activeFilters])
 
   function handlePillSelect(value) {

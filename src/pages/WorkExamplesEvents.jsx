@@ -26,17 +26,52 @@ function getVimeoEmbedUrl(url) {
     : `https://player.vimeo.com/video/${videoId}`
 }
 
+const EVENTS_ORDER = [
+  'iris-siriusxm-001',
+  'iris-samsung-hq-001',
+  'iris-samsung-creators-001',
+  'iris-samsung-screening-001',
+  'iris-samsung-infinity-001',
+  'edelman-takeda-001',
+  'edelman-unilever-001',
+  'mkg-chase-usopen-001',
+  'mkg-chase-locker-001',
+  'mkg-chase-vip-001',
+  'mkg-chase-soundcheck-001',
+  'mkg-chase-applepay-001',
+  'cpf-summerstage-001',
+  'cpf-lacoste-001',
+  'ana-conferences-001',
+]
+
 function groupByClient(projects) {
+  const ordered = EVENTS_ORDER
+    .map((id) => projects.find((p) => p.id === id))
+    .filter(Boolean)
+
   const clientMap = new Map()
   const clientOrder = []
 
-  projects.forEach((p) => {
-    const clientKey =
-      p.brand.includes('Chase') || p.brand.includes('JPMorgan')
-        ? 'JPMorgan Chase'
-        : p.brand.includes('Samsung')
-          ? 'Samsung'
-          : p.brand
+  ordered.forEach((p) => {
+    let clientKey
+
+    if (p.id.startsWith('iris-samsung')) {
+      clientKey = 'Samsung'
+    } else if (p.id.startsWith('mkg-chase')) {
+      clientKey = 'JPMorgan Chase'
+    } else if (p.id === 'iris-siriusxm-001') {
+      clientKey = 'SiriusXM, Kia'
+    } else if (p.id === 'edelman-takeda-001') {
+      clientKey = 'Takeda'
+    } else if (p.id === 'edelman-unilever-001') {
+      clientKey = 'Unilever'
+    } else if (p.id === 'cpf-summerstage-001' || p.id === 'cpf-lacoste-001') {
+      clientKey = 'City Parks Foundation'
+    } else if (p.id === 'ana-conferences-001') {
+      clientKey = 'Association of National Advertisers'
+    } else {
+      clientKey = p.brand
+    }
 
     if (!clientMap.has(clientKey)) {
       clientMap.set(clientKey, [])
@@ -124,7 +159,7 @@ function EventsProjectCard({ project }) {
       <div className="events-project-info-col">
         <h3 className="events-project-name">{projectName}</h3>
         {eventsData.budget && (
-          <p className="events-project-budget">Approx. Budget: {eventsData.budget}</p>
+          <p className="events-project-budget">Approx. Annual Budget: {eventsData.budget}</p>
         )}
         <p className="events-project-year">{year}</p>
         <p className="events-project-caption">{caption}</p>
