@@ -27,12 +27,22 @@ export default function RecordPlayer({ applyTheme, activeTheme }) {
     setAudioSessionActive(false)
   }, [])
 
+  const toggleMute = useCallback(() => {
+    if (audioRef.current) {
+      const newMuted = !audioMuted
+      audioRef.current.muted = newMuted
+      audioRef.current.volume = newMuted ? 0 : 1
+      setAudioMuted(newMuted)
+    }
+  }, [audioMuted])
+
   const playThemeAudio = useCallback(
     (theme) => {
       stopAudio()
       if (!theme?.audioClip) return
       const audio = new Audio(theme.audioClip)
-      audio.volume = audioMuted ? 0 : 0.7
+      audio.muted = audioMuted
+      audio.volume = audioMuted ? 0 : 1
       audio.loop = false
       audio.addEventListener('play', () => setAudioSessionActive(true))
       audio.addEventListener('ended', () => setAudioSessionActive(false))
@@ -95,7 +105,8 @@ export default function RecordPlayer({ applyTheme, activeTheme }) {
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = audioMuted ? 0 : 0.7
+      audioRef.current.muted = audioMuted
+      audioRef.current.volume = audioMuted ? 0 : 1
     }
   }, [audioMuted])
 
@@ -168,7 +179,7 @@ export default function RecordPlayer({ applyTheme, activeTheme }) {
                 {activeTheme ? `Now playing: ${activeTheme.nowPlaying}` : ''}
               </p>
               {audioSessionActive && !reduceMotion ? (
-                <button type="button" className="record-player__mute" onClick={() => setAudioMuted((m) => !m)}>
+                <button type="button" className="record-player__mute" onClick={toggleMute}>
                   {audioMuted ? 'Unmute' : 'Mute'}
                 </button>
               ) : null}
