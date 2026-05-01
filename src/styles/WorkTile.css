@@ -214,27 +214,38 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  gap: 0;
 }
 
-.work-tile-caption,
-.tile-back-caption {
-  font-size: 12px;
+.work-tile-caption {
   color: var(--text-secondary);
-  line-height: 1.6;
   transition: var(--theme-transition);
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
+}
+
+.work-tile-caption.caption-md {
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.work-tile-caption.caption-sm {
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+.work-tile-caption.caption-xs {
+  font-size: 10.5px;
+  line-height: 1.45;
 }
 
 .work-tile-roles {
-  font-size: 11px;
+  font-size: 10px;
   font-style: italic;
   color: var(--text-secondary);
   opacity: 0;
-  margin-top: 6px;
+  margin-top: 4px;
+  margin-bottom: 0;
   transition: opacity 0.2s ease;
   flex-shrink: 0;
 }

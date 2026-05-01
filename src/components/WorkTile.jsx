@@ -6,6 +6,11 @@ function formatBrandName(brand) {
 
 export default function WorkTile({ project }) {
   const hasHeroImage = Boolean(project.heroImage)
+  const captionLength = project.caption?.length || 0
+  const captionSizeClass =
+    captionLength > 400 ? 'work-tile-caption caption-xs'
+      : captionLength > 250 ? 'work-tile-caption caption-sm'
+        : 'work-tile-caption caption-md'
 
   return (
     <article className="work-tile" aria-label={`${project.brand} - ${project.projectName}`}>
@@ -49,7 +54,7 @@ export default function WorkTile({ project }) {
           </div>
 
           <div className="work-tile-caption-wrap">
-            <p className="work-tile-caption" title={project.caption}>
+            <p className={captionSizeClass} title={project.caption}>
               {project.caption}
             </p>
             <p className="work-tile-roles">{project.roles}</p>
