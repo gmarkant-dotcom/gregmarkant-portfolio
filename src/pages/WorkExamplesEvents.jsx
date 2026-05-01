@@ -195,7 +195,7 @@ export default function WorkExamplesEvents() {
           <Link to="/" className="events-back-link">
             gregmarkant.com
           </Link>
-          <a href="/projects/Greg_Markant_Resume.pdf" download className="events-resume-btn">
+          <a href="/Greg_Markant_Resume.pdf" download className="events-resume-btn">
             Download Resume
           </a>
         </header>

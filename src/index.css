@@ -410,7 +410,7 @@ footer {
   height: 72px;
   border-radius: 50%;
   object-fit: cover;
-  object-position: left center;
+  object-position: right center;
   border: 0.5px solid var(--accent);
 }
 
