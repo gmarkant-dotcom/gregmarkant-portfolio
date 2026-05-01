@@ -187,7 +187,7 @@ export const projects = [
     channels: ['Experiential', 'Partnerships', 'Digital', 'Social'],
     skills: ['Experiential Marketing', 'Partnership Strategy', 'Sponsorship', 'Integrated Marketing', 'Brand Strategy'],
     year: 2019,
-    heroImage: '/projects/soulstation.jpg',
+    heroImage: '/projects/soul.jpg',
     imagePosition: 'center center',
     workExamplesPage: 'events',
     eventsData: {
@@ -217,7 +217,7 @@ export const projects = [
     channels: ['Experiential', 'Video', 'B2B Content'],
     skills: ['Experiential Marketing', 'Sales Enablement', 'Brand Strategy', 'Operational Excellence', 'P&L Management'],
     year: 2019,
-    heroImage: '/projects/homeappliance.jpg',
+    heroImage: '/projects/builder.jpg',
     imagePosition: 'center center',
     workExamplesPage: 'events',
     eventsData: {
